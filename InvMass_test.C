@@ -223,6 +223,8 @@ void massdist_double(){
 
 */
     // draw the legend
+
+/*   
    TLegend *legend=new TLegend(0.6,0.65,0.88,0.88);
    legend->SetTextFont(72);
    legend->SetTextSize(0.04);
@@ -232,6 +234,7 @@ void massdist_double(){
    legend->AddEntry(fitFcn,"Global Fit","l");
    legend->AddEntry(g1,"Underlying Gaussian","l");
    legend->Draw();
+*/
 
     //PRINT SOME RESULTS
 //   TLatex *latex=new TLatex(1.082,80000,Form("#splitline{#sigma_{avg} : %g}{peak : %g}",sigma_avg,par[6]));
