@@ -84,12 +84,12 @@ void massdist_double(){
 
     TCanvas *c1 = new TCanvas("c1","c1",50,50,800,600);
 
-    Double Kplus_mass;
-    Double Piminus_mass;
-    Double Kplus_E;
-    Double Piminus_E;
-    Double Kplus_px,Kplus_py,Kplus_pz;
-    Double Piminus_px,Piminus_py,Piminus_pz;
+    double Kplus_mass;
+    double Piminus_mass;
+    double Kplus_E;
+    double Piminus_E;
+    double Kplus_px,Kplus_py,Kplus_pz;
+    double Piminus_px,Piminus_py,Piminus_pz;
 
 
     Int_t i,nentries,nbytes;
