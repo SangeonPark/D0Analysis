@@ -21,8 +21,8 @@ void InvMass(){
    T->Add(Form("/st100-gr1/manca/PbPbData/229/%d/output/PbPb_D0_Jpsi.root",i));
  }
 
- Event* event = new Event();
- T->SetBranchAddress("event", &event);
+// Event* event = new Event();
+// T->SetBranchAddress("event", &event);
     //  TFile *f = TFile::Open("/st100-gr1/manca/PbPbData/229/0/output/PbPb_D0_Jpsi.root");
     //TTree *T = (TTree*)f->Get("D0/DecayTree");
 
@@ -67,7 +67,7 @@ void InvMass(){
  for(i=0;i<nentries;i++){
    T->GetEvent(i);
 
-   
+
    TLorentzVector* vec = new TLorentzVector(Piminus_px+Kplus_px,Piminus_py+Kplus_py,Piminus_pz+Kplus_pz,Piminus_E+Kplus_E);
    h1->Fill(vec->M());
 
