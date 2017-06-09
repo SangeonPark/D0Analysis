@@ -79,7 +79,7 @@ void InvMass_test(){
     TFile *f = TFile::Open("/st100-gr1/manca/PbPbData/229/0/output/PbPb_D0_Jpsi.root");
     TTree *T = (TTree*)f->Get("D0/DecayTree");
 
-    TH1F *h1 = new TH1F("h1","Double Gaussian on Fourth Order Background;m_{p#pi}[GeV];Candidates",100,500,2500);
+    TH1F *h1 = new TH1F("h1",";m_{K_{+}#pi_{-}}[MeV];Candidates",100,500,2500);
     TBranch *b_mass;
 
     TCanvas *c1 = new TCanvas("c1","c1",50,50,800,600);
