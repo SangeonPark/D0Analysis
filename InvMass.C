@@ -60,6 +60,21 @@ void InvMass(){
  T->SetBranchAddress("Kplus_PZ",&Kplus_pz);
  T->SetBranchAddress("Kplus_PE",&Kplus_E);
 
+ T->SetBranchStatus("*",0);
+
+
+ T->SetBranchStatus("piminus_PX",1);
+ T->SetBranchStatus("piminus_PY",1);
+ T->SetBranchStatus("piminus_PZ",1);
+ T->SetBranchStatus("piminus_PE",1);
+
+ T->SetBranchStatus("Kplus_PX",1);
+ T->SetBranchStatus("Kplus_PY",1);
+ T->SetBranchStatus("Kplus_PZ",1);
+ T->SetBranchStatus("Kplus_PE",1);
+
+
+
 
  nentries=(Int_t) T->GetEntries();
 
