@@ -16,7 +16,7 @@ void InvMass(){
 
   TChain* T = new TChain("D0/DecayTree");
 
-  for (int i = 0; i < 3; ++i)
+  for (int i = 0; i < 259; ++i)
   {
    T->Add(Form("/st100-gr1/manca/PbPbData/229/%d/output/PbPb_D0_Jpsi.root",i));
  }
@@ -26,7 +26,7 @@ void InvMass(){
     //  TFile *f = TFile::Open("/st100-gr1/manca/PbPbData/229/0/output/PbPb_D0_Jpsi.root");
     //TTree *T = (TTree*)f->Get("D0/DecayTree");
 
- TH1F *h1 = new TH1F("h1",";m_{K_{+}#pi_{-}}[MeV];Candidates",100,500,2500);
+ TH1F *h1 = new TH1F("h1",";m_{K_{+}#pi_{-}}[MeV];Candidates",100,1800,2000);
  TBranch *b_mass;
 
  TCanvas *c1 = new TCanvas("c1","c1",50,50,800,600);
@@ -46,8 +46,8 @@ void InvMass(){
  const double_t sigma = 0.00279288;
  const double_t binsize = (1.166-1.077)/100;
 
- c1->SetFillColor(33);
- c1->SetFrameFillColor(41);
+// c1->SetFillColor(33);
+// c1->SetFrameFillColor(41);
  c1->SetGrid();
 
  T->SetBranchAddress("piminus_PX",&Piminus_px);
