@@ -16,7 +16,7 @@ void InvMass(){
 
   TChain* T = new TChain("D0/DecayTree");
 
-  for (int i = 0; i < 259; ++i)
+  for (int i = 0; i < 3; ++i)
   {
    T->Add(Form("/st100-gr1/manca/PbPbData/229/%d/output/PbPb_D0_Jpsi.root",i));
  }
