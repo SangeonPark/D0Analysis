@@ -67,7 +67,7 @@ Double_t fitFunction(Double_t *x, Double_t *par){
 
 }
 
-void massdist_double(){
+void InvMass_test(){
 
     using std::cout;
     using std::endl;
