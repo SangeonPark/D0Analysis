@@ -22,7 +22,7 @@ TProof *p = TProof::Open("workers=30");
 chain->SetProof();
 //////
 //chain->Process("d0Selector.C+");
-chain->Process("/sps/lhcb/bossu/Scripts/Analysis/Data/PbPb/D0/ntuples/d0Selector.C+");
+chain->Process("/home/saepark/D0Analysis/d0Selector.C+");
 
 }
 
