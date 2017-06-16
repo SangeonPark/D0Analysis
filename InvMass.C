@@ -37,6 +37,8 @@ void InvMass(){
  double Piminus_E;
  double Kplus_px,Kplus_py,Kplus_pz;
  double Piminus_px,Piminus_py,Piminus_pz;
+ double D0_
+
 
 
  Int_t i,nentries,nbytes;
@@ -59,6 +61,12 @@ void InvMass(){
  T->SetBranchAddress("Kplus_PY",&Kplus_py);
  T->SetBranchAddress("Kplus_PZ",&Kplus_pz);
  T->SetBranchAddress("Kplus_PE",&Kplus_E);
+
+
+ T->SetBranchAddress("D0_PT",&D0_PT);
+ T->SetBranchAddress("Kplus_P",&Kplus_E);
+
+
 
  T->SetBranchStatus("*",0);
 
@@ -84,6 +92,8 @@ void InvMass(){
 
 
    TLorentzVector* vec = new TLorentzVector(Piminus_px+Kplus_px,Piminus_py+Kplus_py,Piminus_pz+Kplus_pz,Piminus_E+Kplus_E);
+   
+
    h1->Fill(vec->M());
 
  }
