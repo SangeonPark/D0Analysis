@@ -31,15 +31,26 @@ void InvMass(){
 
  TCanvas *c1 = new TCanvas("c1","c1",50,50,800,600);
 
- double Kplus_mass;
- double Piminus_mass;
- double Kplus_E;
- double Piminus_E;
- double Kplus_px,Kplus_py,Kplus_pz;
- double Piminus_px,Piminus_py,Piminus_pz;
- double D0_
-
-
+ double piminus_PX;
+ double piminus_PY;
+ double piminus_PZ;
+ double piminus_PE;
+ double piminus_PT;
+ double piminus_PIDK;
+ double piminus_IPCHI2_OWNPV;
+ double piminus_IP_OWNPV;
+ double Kplus_PX;
+ double Kplus_PY;
+ double Kplus_PZ;
+ double Kplus_PE;
+ double Kplus_PT;
+ double Kplus_PIDK;
+ double Kplus_IPCHI2_OWNPV;
+ double Kplus_IP_OWNPV;
+ double D0_TAU;
+ double D0_ENDVERTEX_CHI2;
+ double D0_IPCHI2_OWNPV;
+ double D0_PT;
 
  Int_t i,nentries,nbytes;
  long signalCand=0;
@@ -52,34 +63,43 @@ void InvMass(){
 // c1->SetFrameFillColor(41);
  c1->SetGrid();
 
- T->SetBranchAddress("piminus_PX",&Piminus_px);
- T->SetBranchAddress("piminus_PY",&Piminus_py);
- T->SetBranchAddress("piminus_PZ",&Piminus_pz);
- T->SetBranchAddress("piminus_PE",&Piminus_E);
+ T->SetBranchAddress("piminus_PX",&piminus_PX);
+ T->SetBranchAddress("piminus_PY",&piminus_PY);
+ T->SetBranchAddress("piminus_PZ",&piminus_PZ);
+ T->SetBranchAddress("piminus_PE",&Piminus_PE);
+ T->SetBranchAddress("piminus_PT",&Piminus_PT);
 
- T->SetBranchAddress("Kplus_PX",&Kplus_px);
- T->SetBranchAddress("Kplus_PY",&Kplus_py);
- T->SetBranchAddress("Kplus_PZ",&Kplus_pz);
- T->SetBranchAddress("Kplus_PE",&Kplus_E);
+ T->SetBranchAddress("piminus_PIDK",&piminus_PIDK);
+ T->SetBranchAddress("piminus_IPCHI2_OWNPV",&piminus_IPCHI2_OWNPV);
+ T->SetBranchAddress("piminus_IP_OWNPV",&piminus_IP_OWNPV);
+
+
+ T->SetBranchAddress("Kplus_PX",&Kplus_PX);
+ T->SetBranchAddress("Kplus_PY",&Kplus_PY);
+ T->SetBranchAddress("Kplus_PZ",&Kplus_PZ);
+ T->SetBranchAddress("Kplus_PE",&Kplus_PE);
+ T->SetBranchAddress("Kplus_PT",&Kplus_PT);
+
+ T->SetBranchAddress("Kplus_PIDK",&Kplus_PIDK);
+
+ T->SetBranchAddress("Kplus_IPCHI2_OWNPV",&Kplus_IPCHI2_OWNPV);
+
+ T->SetBranchAddress("Kplus_IP_OWNPV",&Kplus_IP_OWNPV);
+
+
+
+ T->SetBranchAddress("D0_TAU",&D0_TAU);
+
+ T->SetBranchAddress("D0_ENDVERTEX_CHI2",&D0_ENDVERTEX_CHI2);
+ T->SetBranchAddress("D0_IPCHI2_OWNPV",&D0_IPCHI2_OWNPV);
+
+
 
 
  T->SetBranchAddress("D0_PT",&D0_PT);
- T->SetBranchAddress("Kplus_P",&Kplus_E);
 
 
 
- T->SetBranchStatus("*",0);
-
-
- T->SetBranchStatus("piminus_PX",1);
- T->SetBranchStatus("piminus_PY",1);
- T->SetBranchStatus("piminus_PZ",1);
- T->SetBranchStatus("piminus_PE",1);
-
- T->SetBranchStatus("Kplus_PX",1);
- T->SetBranchStatus("Kplus_PY",1);
- T->SetBranchStatus("Kplus_PZ",1);
- T->SetBranchStatus("Kplus_PE",1);
 
 
 
@@ -90,8 +110,28 @@ void InvMass(){
  for(i=0;i<nentries;i++){
    T->GetEvent(i);
 
+   if( *piminus_PT < 400. ) return ;
+   if( *Kplus_PT < 400. ) return ;
 
-   TLorentzVector* vec = new TLorentzVector(Piminus_px+Kplus_px,Piminus_py+Kplus_py,Piminus_pz+Kplus_pz,Piminus_E+Kplus_E);
+   if( *piminus_PIDK > -1. ) return ;
+   if( *Kplus_PIDK < 6. ) return ;
+
+   if( *piminus_IPCHI2_OWNPV<9 ) return ;
+   if( *Kplus_IPCHI2_OWNPV<9 ) return ;
+
+  if( *piminus_IP_OWNPV > 3. ) return ;
+   if( *Kplus_IP_OWNPV > 3. ) return ;
+  // cut on the D0
+  //if( *D0_DIRA_OWNPV < .9999 ) return 0;
+   if( *D0_TAU*1000 < 0.5  ) return ;
+
+  // cut on nPV
+   if( *D0_ENDVERTEX_CHI2>4 ) return ;
+   if( *D0_IPCHI2_OWNPV >4 ) return ;
+
+
+
+   TLorentzVector* vec = new TLorentzVector(piminus_PX+Kplus_PX,piminus_PY+Kplus_PY,piminus_PZ+Kplus_PZ,piminus_PE+Kplus_PE);
    
 
    h1->Fill(vec->M());
