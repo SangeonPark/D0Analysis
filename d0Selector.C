@@ -35,6 +35,8 @@
 #include <TMath.h>
 #include <Riostream.h>
 #include <TNtuple.h>
+#include <TLorentzVector.h>
+
 
 void d0Selector::Begin(TTree * /*tree*/)
 {
@@ -130,6 +132,8 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   Double_t Time_low_edge = 1448453220;
   Double_t Time_up_edge  = 1450015074;
   TH1D *hTime = new TH1D("hTime","Time", nBins_Time, Time_low_edge, Time_up_edge);
+  TH1D *hInvMass = new TH1D("hInvMass",";m_{K_{+}#pi_{-}}[MeV];Candidates",100,1800,2000);
+
   hTime->GetXaxis()->SetTitle("time (s)"); 
   hTime->GetYaxis()->SetTitle(Form("entries/(%.0f s)",(Time_up_edge - Time_low_edge)/nBins_Time)); 
   GetOutputList()->Add( hTime );  
@@ -248,6 +252,11 @@ Bool_t d0Selector::Process(Long64_t entry)
       *piminus_PIDK,
       *eHcal, *eEcal, *nVeloClusters );
 
+  TLorentzVector* vec = new TLorentzVector(*piminus_PX+*Kplus_PX,*piminus_PY+*Kplus_PY,*piminus_PZ+*Kplus_PZ,*piminus_PE+*Kplus_PE);
+
+
+
+   hInvMass->Fill(vec->M());
    return kTRUE;
 }
 
@@ -298,6 +307,10 @@ void d0Selector::Terminate()
   TH2D *hCandidates = dynamic_cast<TH2D*>( GetOutputList()->FindObject("hCandidates_vs_VeloClusters")->Clone() );
   hCandidates->SetDirectory( outfile );
   hCandidates->Write();
+
+  TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass")->Clone() );
+  hInvMass->SetDirectory( outfile );
+  hInvMass->Write();
 
   TH1F *hruns = dynamic_cast<TH1F*>( GetOutputList()->FindObject("hruns") );
   hruns->SetDirectory( outfile );
