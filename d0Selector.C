@@ -132,11 +132,14 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   Double_t Time_low_edge = 1448453220;
   Double_t Time_up_edge  = 1450015074;
   TH1D *hTime = new TH1D("hTime","Time", nBins_Time, Time_low_edge, Time_up_edge);
-  TH1D *hInvMass = new TH1D("hInvMass",";m_{K_{+}#pi_{-}}[MeV];Candidates",100,1800,2000);
 
   hTime->GetXaxis()->SetTitle("time (s)"); 
   hTime->GetYaxis()->SetTitle(Form("entries/(%.0f s)",(Time_up_edge - Time_low_edge)/nBins_Time)); 
   GetOutputList()->Add( hTime );  
+
+  TH1D *hInvMass = new TH1D("hInvMass",";m_{K_{+}#pi_{-}}[MeV];Candidates",100,1800,2000);
+  GetOutputList()->Add( hInvMass );  
+
 
   Int_t nBins_Candidates = 100;
   Double_t Candidates_low_edge = 0;
