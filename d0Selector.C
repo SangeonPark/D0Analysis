@@ -174,6 +174,9 @@ Bool_t d0Selector::Process(Long64_t entry)
    // The return value is currently not used.
 
   TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
+
+    TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass") );
+
    fReader.SetEntry(entry);
 
   if( entry%5000 == 0) Printf( "%lld", entry);
@@ -256,10 +259,9 @@ Bool_t d0Selector::Process(Long64_t entry)
       *eHcal, *eEcal, *nVeloClusters );
 
   TLorentzVector* vec = new TLorentzVector(*piminus_PX+*Kplus_PX,*piminus_PY+*Kplus_PY,*piminus_PZ+*Kplus_PZ,*piminus_PE+*Kplus_PE);
+  hInvMass->Fill(vec->M());
 
 
-
-   hInvMass->Fill(vec->M());
    return kTRUE;
 }
 
