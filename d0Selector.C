@@ -56,6 +56,31 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
    TString option = GetOption();
 
   fStrHlt = new TString[knVarHlt]; 
+
+  double velobins[]={
+   1,  
+   1311,
+   3009,
+   5580,
+   9685,
+   15417,
+   22473,
+   45000
+  };
+
+  double centrality[]={
+    100,
+    90,
+    80,
+    70,
+    60,
+    50,
+    40,
+    0
+
+  };
+
+
   TString listHlt[] ={
     "D0_Candidates_all" 
   };
@@ -332,7 +357,6 @@ void d0Selector::Terminate()
   TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass")->Clone() );
   hInvMass->SetDirectory( outfile );
   hInvMass->Write();
-  hInvMass->Print("./InvMassDist.pdf");
 
   TH1F *hruns = dynamic_cast<TH1F*>( GetOutputList()->FindObject("hruns") );
   hruns->SetDirectory( outfile );
