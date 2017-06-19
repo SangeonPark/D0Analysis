@@ -2,7 +2,7 @@
 
 arr=(229 232 233 234 235 236 237 239 240 241)
 range=(258 280 228 553 681 294 834 485 897 0)
-for ((n=0;n<5;n++)); do  
+for ((n=0;n<10;n++)); do  
 
     for ((i=0;i<=${range[$n]};i++)); do
     		echo "/st100-gr1/manca/PbPbData/${arr[$n]}/$i/output/PbPb_D0_Jpsi.root" >> tuplefiles.txt
