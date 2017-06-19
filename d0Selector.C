@@ -137,7 +137,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   hTime->GetYaxis()->SetTitle(Form("entries/(%.0f s)",(Time_up_edge - Time_low_edge)/nBins_Time)); 
   GetOutputList()->Add( hTime );  
 
-  TH1D *hInvMass = new TH1D("hInvMass",";m_{K_{+}#pi_{-}}[MeV];Candidates",100,1800,2000);
+  TH1D *hInvMass = new TH1D("hInvMass","Inv Mass;m_{K_{+}#pi_{-}}[MeV];Candidates",100,1600,2200);
   GetOutputList()->Add( hInvMass );  
 
 
