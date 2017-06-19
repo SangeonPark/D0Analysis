@@ -3,7 +3,7 @@
 TChain *chain = new TChain("D0/DecayTree");
 //TChain *chain = new TChain("DecayTreeTuple/DecayTree");
 
-
+/*
 ifstream inf("tuplefiles.txt");
 TString line;
 
@@ -14,6 +14,14 @@ while( inf >> line ){
   chain->Add(line.Data());
 
 }
+*/
+
+
+  for (int i = 0; i < 259; ++i)
+  {
+   chain->Add(Form("/st100-gr1/manca/PbPbData/229/%d/output/PbPb_D0_Jpsi.root",i));
+ }
+
 
 //chain->Draw("runNumber>>h(200,161050,161250)","nCandidate==0");
 
