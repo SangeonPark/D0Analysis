@@ -119,7 +119,7 @@ void InvMass(){
    if( piminus_IPCHI2_OWNPV<9 ) return ;
    if( Kplus_IPCHI2_OWNPV<9 ) return ;
 
-  if( piminus_IP_OWNPV > 3. ) return ;
+   if( piminus_IP_OWNPV > 3. ) return ;
    if( Kplus_IP_OWNPV > 3. ) return ;
   // cut on the D0
   //if( *D0_DIRA_OWNPV < .9999 ) return 0;
@@ -138,6 +138,8 @@ void InvMass(){
 
  }
 
+
+ cout << wow << endl;
  h1->SetMarkerStyle(21);
  h1->SetMarkerSize(0.8);
  h1->SetStats(0);
