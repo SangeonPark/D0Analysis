@@ -182,10 +182,17 @@ Bool_t d0Selector::Process(Long64_t entry)
   if( entry%5000 == 0) Printf( "%lld", entry);
   *fVarHlt[kD0CANDALL] = kTRUE; // just to be sure that is always true
 
+
+//just a test
+  /*
+
+
   if(*nLongTracks !=2 ) return kFALSE;
   // if not a BCType3 skip
   //
   if( *BCType != 3 ) return kFALSE;
+
+*/
 
   // ----------------------------------
   // General plots before the cuts, only filled for the first candidate
