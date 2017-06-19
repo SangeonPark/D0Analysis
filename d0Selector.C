@@ -184,7 +184,7 @@ Bool_t d0Selector::Process(Long64_t entry)
 
 
 //just a test Jun 29
-  /*
+  
 
 
   if(*nLongTracks !=2 ) return kFALSE;
@@ -192,7 +192,7 @@ Bool_t d0Selector::Process(Long64_t entry)
   //
   if( *BCType != 3 ) return kFALSE;
 
-*/
+
 
 
 
