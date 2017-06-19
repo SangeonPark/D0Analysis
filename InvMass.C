@@ -112,6 +112,7 @@ void InvMass(){
  for(i=0;i<nentries;i++){
    T->GetEvent(i);
 
+/*
    if( piminus_PT < 400. ) return ;
    if( Kplus_PT < 400. ) return ;
 
@@ -130,7 +131,7 @@ void InvMass(){
   // cut on nPV
    if( D0_ENDVERTEX_CHI2>4 ) return ;
    if( D0_IPCHI2_OWNPV >4 ) return ;
-
+*/
 
 
    TLorentzVector* vec = new TLorentzVector(piminus_PX+Kplus_PX,piminus_PY+Kplus_PY,piminus_PZ+Kplus_PZ,piminus_PE+Kplus_PE);
@@ -141,7 +142,7 @@ void InvMass(){
  }
 
 
- cout << "wow" << endl;
+ cout << "point 3" << endl;
  h1->SetMarkerStyle(21);
  h1->SetMarkerSize(0.8);
  h1->SetStats(0);
