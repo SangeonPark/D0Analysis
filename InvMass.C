@@ -66,8 +66,8 @@ void InvMass(){
  T->SetBranchAddress("piminus_PX",&piminus_PX);
  T->SetBranchAddress("piminus_PY",&piminus_PY);
  T->SetBranchAddress("piminus_PZ",&piminus_PZ);
- T->SetBranchAddress("piminus_PE",&Piminus_PE);
- T->SetBranchAddress("piminus_PT",&Piminus_PT);
+ T->SetBranchAddress("piminus_PE",&piminus_PE);
+ T->SetBranchAddress("piminus_PT",&piminus_PT);
 
  T->SetBranchAddress("piminus_PIDK",&piminus_PIDK);
  T->SetBranchAddress("piminus_IPCHI2_OWNPV",&piminus_IPCHI2_OWNPV);
