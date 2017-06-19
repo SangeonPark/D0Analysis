@@ -110,24 +110,24 @@ void InvMass(){
  for(i=0;i<nentries;i++){
    T->GetEvent(i);
 
-   if( *piminus_PT < 400. ) return ;
-   if( *Kplus_PT < 400. ) return ;
+   if( piminus_PT < 400. ) return ;
+   if( Kplus_PT < 400. ) return ;
 
-   if( *piminus_PIDK > -1. ) return ;
-   if( *Kplus_PIDK < 6. ) return ;
+   if( piminus_PIDK > -1. ) return ;
+   if( Kplus_PIDK < 6. ) return ;
 
-   if( *piminus_IPCHI2_OWNPV<9 ) return ;
-   if( *Kplus_IPCHI2_OWNPV<9 ) return ;
+   if( piminus_IPCHI2_OWNPV<9 ) return ;
+   if( Kplus_IPCHI2_OWNPV<9 ) return ;
 
-  if( *piminus_IP_OWNPV > 3. ) return ;
-   if( *Kplus_IP_OWNPV > 3. ) return ;
+  if( piminus_IP_OWNPV > 3. ) return ;
+   if( Kplus_IP_OWNPV > 3. ) return ;
   // cut on the D0
   //if( *D0_DIRA_OWNPV < .9999 ) return 0;
-   if( *D0_TAU*1000 < 0.5  ) return ;
+   if( D0_TAU*1000 < 0.5  ) return ;
 
   // cut on nPV
-   if( *D0_ENDVERTEX_CHI2>4 ) return ;
-   if( *D0_IPCHI2_OWNPV >4 ) return ;
+   if( D0_ENDVERTEX_CHI2>4 ) return ;
+   if( D0_IPCHI2_OWNPV >4 ) return ;
 
 
 

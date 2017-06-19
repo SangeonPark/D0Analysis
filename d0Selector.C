@@ -214,7 +214,7 @@ Bool_t d0Selector::Process(Long64_t entry)
   // CUTS
   //cut on daughters' pT
 
-  /*
+  
   if( *piminus_PT < 400. ) return 0;
   if( *Kplus_PT < 400. ) return 0;
 
@@ -234,8 +234,7 @@ Bool_t d0Selector::Process(Long64_t entry)
   if( *D0_ENDVERTEX_CHI2>4 ) return 0;
   if( *D0_IPCHI2_OWNPV >4 ) return 0;
 
-  */
-
+  
 
 
   double d0_ownpv_r = TMath::Sqrt( (*D0_OWNPV_X)*(*D0_OWNPV_X)+(*D0_OWNPV_Y)*(*D0_OWNPV_Y) );
