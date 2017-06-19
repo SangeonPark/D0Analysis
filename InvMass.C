@@ -63,6 +63,8 @@ void InvMass(){
 // c1->SetFrameFillColor(41);
  c1->SetGrid();
 
+ cout << "point 1" << endl;
+
  T->SetBranchAddress("piminus_PX",&piminus_PX);
  T->SetBranchAddress("piminus_PY",&piminus_PY);
  T->SetBranchAddress("piminus_PZ",&piminus_PZ);
@@ -99,7 +101,7 @@ void InvMass(){
  T->SetBranchAddress("D0_PT",&D0_PT);
 
 
-
+ cout << "point2" << endl;
 
 
 
