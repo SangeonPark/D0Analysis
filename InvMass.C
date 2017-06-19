@@ -139,7 +139,7 @@ void InvMass(){
  }
 
 
- cout << wow << endl;
+ cout << "wow" << endl;
  h1->SetMarkerStyle(21);
  h1->SetMarkerSize(0.8);
  h1->SetStats(0);
