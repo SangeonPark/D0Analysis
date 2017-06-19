@@ -330,6 +330,7 @@ void d0Selector::Terminate()
   TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass")->Clone() );
   hInvMass->SetDirectory( outfile );
   hInvMass->Write();
+  hInvMass->Print("./InvMassDist.pdf");
 
   TH1F *hruns = dynamic_cast<TH1F*>( GetOutputList()->FindObject("hruns") );
   hruns->SetDirectory( outfile );
