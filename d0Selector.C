@@ -92,6 +92,8 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
     GetOutputList()->Add( hMM[ j ] );  
   }
 
+  hMM_cent = new TH1D*[10];
+
   for (int i=0; i<7; i++){
 
     hMM_cent[i] = new TH1D(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]),
