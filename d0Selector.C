@@ -57,6 +57,9 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
 
   fStrHlt = new TString[knVarHlt]; 
 
+
+  cout << "hello world" << endl;
+
   
 
   TString listHlt[] ={
@@ -289,7 +292,6 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   for(int i=0; i<7; i++){
     if(*nVeloClusters <= velobins[i]){
-      cout << velobins[i] << endl;
       bin = i;
       break;
     }
