@@ -40,6 +40,7 @@ private:
   Int_t GetHPos( Int_t h, Int_t b){ return h + b*knVarHlt; }
   // ------ Histo pointers -------------------
   TH1D **hMM;
+  TH1D **hMM_cent;
   THnSparseD **hSparse;
   
 public :

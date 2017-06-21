@@ -97,7 +97,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   // #################################################
 
   // MM
-  Int_t nBins_MM       = 75;
+  Int_t nBins_MM       = 100;
   Double_t MM_low_edge = 1600.;
   Double_t MM_up_edge  = 2200.;
   hMM = new TH1D*[knVarHlt];
@@ -110,6 +110,23 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
     
     GetOutputList()->Add( hMM[ j ] );  
   }
+
+  for (int i=0; i<7; i++){
+
+    hMM_cent[i] = new TH1D(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]),
+                           Form("Invariant Mass %d-%d %%",centrality[i+1],centrality[i]),
+                           nBins_MM, MM_low_edge, MM_up_edge);
+
+    hMM_cent[i]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
+
+    hMM_cent[i]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
+            GetOutputList()->Add( hMM_cent[ i ] );  
+
+
+
+
+  }
+
 
   Int_t nBins_PT        = 10;
   Double_t PT_low_edge = 0.;
@@ -289,6 +306,20 @@ Bool_t d0Selector::Process(Long64_t entry)
         hSparse[j]->Fill(d0var );
     }
   }
+
+  int bin = -1;
+
+
+  for(int i=0; i<7; i++){
+    if(*nVeloClusters <= velobins[i]){
+      bin = i;
+      break;
+    }
+  }
+
+  hMM_cent[bin]->Fill(*D0_MM);
+
+
   nt->Fill( 
       *D0_MM,
       *D0_PT,
@@ -328,7 +359,7 @@ void d0Selector::Terminate()
   TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
   // +++++++++++++++++++++++++++++++++++++++++++++++++
   // prepare for saving histos in a file
-  TFile *outfile = TFile::Open("histos_noBC3.root","recreate");
+  TFile *outfile = TFile::Open("histos_cent.root","recreate");
 
   nt->SetDirectory( outfile );
   nt->Write(); 
@@ -344,6 +375,18 @@ void d0Selector::Terminate()
     //tS->SetDirectory( outfile );
     tS->Write();
   }
+
+  for( int i = 0; i<7; i++){
+        TH1D *tmp = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]))->Clone() );
+        tmp->SetDirectory( outfile );
+    tmp->Write();
+
+
+
+  }
+
+
+
   outfile->cd();
 
   TH1D *hTime = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hTime")->Clone() );
