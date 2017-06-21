@@ -43,7 +43,7 @@ private:
   TH1D **hMM_cent;
   THnSparseD **hSparse;
 
-  double velobins[8]={
+  int velobins[8]={
    1,  
    1311,
    3009,
@@ -54,7 +54,7 @@ private:
    45000
   };
 
-  double centrality[8]={
+  int centrality[8]={
     100,
     90,
     80,
