@@ -57,7 +57,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
 
   fStrHlt = new TString[knVarHlt]; 
 
-  double velobins[]={
+  double velobins[10]={
    1,  
    1311,
    3009,
@@ -68,7 +68,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
    45000
   };
 
-  double centrality[]={
+  double centrality[10]={
     100,
     90,
     80,
