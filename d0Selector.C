@@ -98,7 +98,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
     hMM_cent[i]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
 
     hMM_cent[i]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
-            GetOutputList()->Add( hMM_cent[ i ] );  
+    GetOutputList()->Add( hMM_cent[ i ] );  
 
 
 
@@ -355,9 +355,9 @@ void d0Selector::Terminate()
   }
 
   for( int i = 0; i<7; i++){
-        TH1D *tmp = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]))->Clone() );
-        tmp->SetDirectory( outfile );
-    tmp->Write();
+        TH1D *tmp2 = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]))->Clone() );
+        tmp2->SetDirectory( outfile );
+    tmp2->Write();
 
 
 
