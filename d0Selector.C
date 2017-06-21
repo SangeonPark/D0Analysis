@@ -92,7 +92,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   for (int i=0; i<7; i++){
 
     hMM_cent[i] = new TH1D(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]),
-                           Form("Invariant Mass %d-%d %%",centrality[i+1],centrality[i]),
+                           Form("Invariant Mass %d-%d percent",centrality[i+1],centrality[i]),
                            nBins_MM, MM_low_edge, MM_up_edge);
 
     hMM_cent[i]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
@@ -287,9 +287,9 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   int bin = -1;
 
-
   for(int i=0; i<7; i++){
     if(*nVeloClusters <= velobins[i]){
+      cout << velobins[i] << endl;
       bin = i;
       break;
     }
