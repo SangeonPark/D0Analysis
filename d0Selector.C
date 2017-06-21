@@ -58,10 +58,6 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   fStrHlt = new TString[knVarHlt]; 
 
 
-  cout << "hello world" << endl;
-
-  
-
   TString listHlt[] ={
     "D0_Candidates_all" 
   };
@@ -299,7 +295,7 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
-  hMM_cent[bin]->Fill(*D0_MM);
+  hMM_cent[bin-1]->Fill(*D0_MM);
 
 
   nt->Fill( 
