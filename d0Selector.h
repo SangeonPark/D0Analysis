@@ -42,6 +42,30 @@ private:
   TH1D **hMM;
   TH1D **hMM_cent;
   THnSparseD **hSparse;
+
+  double velobins[]={
+   1,  
+   1311,
+   3009,
+   5580,
+   9685,
+   15417,
+   22473,
+   45000
+  };
+
+  double centrality[]={
+    100,
+    90,
+    80,
+    70,
+    60,
+    50,
+    40,
+    0
+
+  };
+
   
 public :
    TTreeReader     fReader;  //!the tree reader

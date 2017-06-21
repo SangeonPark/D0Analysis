@@ -57,29 +57,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
 
   fStrHlt = new TString[knVarHlt]; 
 
-  double velobins[10]={
-   1,  
-   1311,
-   3009,
-   5580,
-   9685,
-   15417,
-   22473,
-   45000
-  };
-
-  double centrality[10]={
-    100,
-    90,
-    80,
-    70,
-    60,
-    50,
-    40,
-    0
-
-  };
-
+  
 
   TString listHlt[] ={
     "D0_Candidates_all" 
