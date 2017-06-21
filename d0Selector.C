@@ -217,7 +217,7 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   // if not a BCType3 skip
   //
-  //if( *BCType != 3 ) return kFALSE;
+  if( *BCType != 3 ) return kFALSE;
 
 
 
@@ -328,7 +328,7 @@ void d0Selector::Terminate()
   TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
   // +++++++++++++++++++++++++++++++++++++++++++++++++
   // prepare for saving histos in a file
-  TFile *outfile = TFile::Open("histos.root","recreate");
+  TFile *outfile = TFile::Open("histos_noBC3.root","recreate");
 
   nt->SetDirectory( outfile );
   nt->Write(); 
