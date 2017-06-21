@@ -217,7 +217,7 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   // if not a BCType3 skip
   //
-  if( *BCType != 3 ) return kFALSE;
+  //if( *BCType != 3 ) return kFALSE;
 
 
 
