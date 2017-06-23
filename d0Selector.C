@@ -361,7 +361,7 @@ void d0Selector::Terminate()
   TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
   // +++++++++++++++++++++++++++++++++++++++++++++++++
   // prepare for saving histos in a file
-  TFile *outfile = TFile::Open("histos_cent_rebin.root","recreate");
+  TFile *outfile = TFile::Open("histos_with_Ecal.root","recreate");
 
   nt->SetDirectory( outfile );
   nt->Write(); 
