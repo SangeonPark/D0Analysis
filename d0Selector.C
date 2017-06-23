@@ -74,7 +74,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   // #################################################
 
   // MM
-  Int_t nBins_MM       = 100;
+  Int_t nBins_MM       = 75;
   Double_t MM_low_edge = 1600.;
   Double_t MM_up_edge  = 2200.;
   hMM = new TH1D*[knVarHlt];
@@ -337,7 +337,7 @@ void d0Selector::Terminate()
   TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
   // +++++++++++++++++++++++++++++++++++++++++++++++++
   // prepare for saving histos in a file
-  TFile *outfile = TFile::Open("histos_cent.root","recreate");
+  TFile *outfile = TFile::Open("histos_cent_rebin.root","recreate");
 
   nt->SetDirectory( outfile );
   nt->Write(); 
