@@ -74,7 +74,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   // #################################################
 
   // MM
-  Int_t nBins_MM       = 75;
+  Int_t nBins_MM       = 100;
   Double_t MM_low_edge = 1600.;
   Double_t MM_up_edge  = 2200.;
   hMM = new TH1D*[knVarHlt];
@@ -152,8 +152,8 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   Int_t nBins_Time = 5206;
   Double_t Time_low_edge = 1448453220;
   Double_t Time_up_edge  = 1450015074;
-  TH1D *hTime = new TH1D("hTime","Time", nBins_Time, Time_low_edge, Time_up_edge);
 
+  TH1D *hTime = new TH1D("hTime","Time", nBins_Time, Time_low_edge, Time_up_edge);
   hTime->GetXaxis()->SetTitle("time (s)"); 
   hTime->GetYaxis()->SetTitle(Form("entries/(%.0f s)",(Time_up_edge - Time_low_edge)/nBins_Time)); 
   GetOutputList()->Add( hTime );  
@@ -161,15 +161,29 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   TH1D *hInvMass = new TH1D("hInvMass","Inv Mass;m_{K_{+}#pi_{-}}[MeV];Candidates",100,1600,2200);
   GetOutputList()->Add( hInvMass );  
 
+  TH1D *heEcal = new TH1D("heEcal","eEcal;Energy Ecal (MeV);Counts",2000,0,60000000);
+  GetOutputList()->Add( heEcal );
+
+
+
+
+
 
   Int_t nBins_Candidates = 100;
   Double_t Candidates_low_edge = 0;
   Double_t Candidates_up_edge  = 100;
+
   TH2D *hCandidates = new TH2D("hCandidates_vs_VeloClusters","Candidates vs Velo",
                                 nBins_nVeloClusters, nVeloClusters_low_edge, nVeloClusters_up_edge,
                                 nBins_Candidates, Candidates_low_edge, Candidates_up_edge
                         );
   GetOutputList()->Add( hCandidates );  
+
+  TH2D *heEcalVelo = new TH2D("heEcal_vs_VeloClusters","eEcal:Velo",
+                                2000, nVeloClusters_low_edge, nVeloClusters_up_edge,
+                                2000, 0, 60000000
+                        );
+  GetOutputList()->Add( heEcalVelo );  
 
   TH1F *hruns = new TH1F("hruns","runs",169618-168487,168487,169618);
   GetOutputList()->Add( hruns );  
@@ -230,6 +244,16 @@ Bool_t d0Selector::Process(Long64_t entry)
 
     TH2D *hCandidates = dynamic_cast<TH2D*>( GetOutputList()->FindObject("hCandidates_vs_VeloClusters") );
     hCandidates->Fill( *nVeloClusters, *totCandidates );
+
+
+        TH2D *heEcalVelo = dynamic_cast<TH2D*>( GetOutputList()->FindObject("heEcal_vs_VeloClusters") );
+
+    heEcalVelo->Fill (*nVeloClusters, *eEcal);
+
+    TH1D *heEcal = dynamic_cast<TH1D*>( GetOutputList()->FindObject("heEcal") );
+
+
+    heEcal->Fill(*eEcal);
     //for( int j=0; j< knVarHlt;j++){
       //hnSPDHits[GetHPos(j,BCType-1)]->Fill( nSPDHits );
       //hnVeloTracks[GetHPos(j,BCType-1)]->Fill( nVeloTracks );
@@ -371,9 +395,17 @@ void d0Selector::Terminate()
   hTime->SetDirectory( outfile );
   hTime->Write();
 
+    TH1D *heEcal = dynamic_cast<TH1D*>( GetOutputList()->FindObject("heEcal")->Clone() );
+  heEcal->SetDirectory( outfile );
+  heEcal->Write();
+
   TH2D *hCandidates = dynamic_cast<TH2D*>( GetOutputList()->FindObject("hCandidates_vs_VeloClusters")->Clone() );
   hCandidates->SetDirectory( outfile );
   hCandidates->Write();
+
+    TH2D *heEcalVelo = dynamic_cast<TH2D*>( GetOutputList()->FindObject("heEcal_vs_VeloClusters")->Clone() );
+  heEcalVelo->SetDirectory( outfile );
+  heEcalVelo->Write();
 
   TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass")->Clone() );
   hInvMass->SetDirectory( outfile );
