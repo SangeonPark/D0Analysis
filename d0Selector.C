@@ -349,6 +349,8 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
+  cout << bin_cent << " " << bin_pt <<" " << bin_y << " " << endl;
+
 /*
   if(bin_cent == 5){
     if(*D0_MM > 1000){
