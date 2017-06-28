@@ -41,6 +41,8 @@ private:
   // ------ Histo pointers -------------------
   TH1D **hMM;
   TH1D **hMM_cent;
+  TH1D* hMM_differential[10][60][30];
+
   THnSparseD **hSparse;
 
   int velobins[8]={

@@ -101,8 +101,22 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
     hMM_cent[i]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
     GetOutputList()->Add( hMM_cent[ i ] );  
 
+  }
 
+  for (int i=0; i<7; i++){
+    for(int j=0; j<12; j++){
+      for(int k=0; k<6; k++){
 
+    hMM_differential[i][j][k] = new TH1D(Form("hMM_diff_%d_%d_%d",i,j,k),
+                           Form("Diff_%d-%dcent_pT(%d-%dGeV)_y(%d-%d)",centrality[i+1],centrality[i],0.5*j,0.5*j+0.5,2.0+0.5*k,2.5+0.5*k),
+                           nBins_MM, MM_low_edge, MM_up_edge);
+
+    hMM_differential[i][j][k]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
+
+    hMM_differential[i][j][k]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
+    GetOutputList()->Add( hMM_differential[ i ][j][k] );  
+      }
+    }
 
   }
 
@@ -310,16 +324,35 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
-  int bin = -1;
+  int bin_cent = -1;
+  int bin_pt = -1;
+  int bin_y = -1;
 
-  for(int i=0; i<7; i++){
+  for(int i=1; i<7; i++){
     if(*nVeloClusters <= velobins[i]){
-      bin = i;
+      bin_cent = i;
       break;
     }
   }
 
-  hMM_cent[bin-1]->Fill(*D0_MM);
+  for(int i=1; i<=12; i++){
+    if(*D0_PT <= 500*i){
+      bin_pt = i;
+      break;
+    }
+  }
+
+  for(int i=1; i<=6; i++){
+    if(*D0_Y <= 2+i*0.5){
+      bin_y = i;
+      break;
+    }
+  }
+
+
+
+  hMM_cent[bin_cent-1]->Fill(*D0_MM);
+  hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
 
 
   nt->Fill( 
@@ -381,11 +414,24 @@ void d0Selector::Terminate()
   for( int i = 0; i<7; i++){
         TH1D *tmp2 = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]))->Clone() );
         tmp2->SetDirectory( outfile );
-    tmp2->Write();
-
-
+        tmp2->Write();
 
   }
+    for( int i = 0; i<7; i++){
+      for(int j=0;j<12;j++){
+        for(int k=0;k<6;k++){
+        TH1D *tmp3 = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_diff_%d_%d_%d",i,j,k))->Clone() );
+        tmp3->SetDirectory( outfile );
+        tmp3->Write();
+      }
+    }
+
+  }
+
+
+
+
+
 
 
 
