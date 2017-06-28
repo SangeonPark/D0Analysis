@@ -114,7 +114,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
     hMM_differential[i][j][k]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
 
     hMM_differential[i][j][k]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
-    GetOutputList()->Add( hMM_differential[ i ][j][k] );  
+    GetOutputList()->Add( hMM_differential[i][j][k] );  
       }
     }
 
@@ -349,7 +349,7 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
-  if(bin_cent-1 == 4){
+  if(bin_cent == 5){
     if(*D0_MM > 1000){
 
         hMM_cent[bin_cent-1]->Fill(*D0_MM);
