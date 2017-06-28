@@ -104,8 +104,8 @@ Bool_t *varHlt[] = {
   }
 
   for (int i=0; i<7; i++){
-    for(int j=0; j<12; j++){
-      for(int k=0; k<6; k++){
+    for(int j=0; j<30; j++){
+      for(int k=0; k<7; k++){
 
         hMM_differential[i][j][k] = new TH1D(Form("hMM_diff_%d_%d_%d",i,j,k),
          Form("Diff_%d-%dcent_pT(%.1f-%.1fGeV)_y(%.1f-%.1f)",centrality[i+1],centrality[i],0.5*j,0.5*j+0.5,2.0+0.5*k,2.5+0.5*k),
@@ -335,14 +335,14 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
-  for(int i=1; i<=12; i++){
+  for(int i=1; i<=30; i++){
     if(*D0_PT <= 500*i){
       bin_pt = i;
       break;
     }
   }
 
-  for(int i=1; i<=6; i++){
+  for(int i=1; i<=7; i++){
     if(*D0_Y <= 2+i*0.5){
       bin_y = i;
       break;
@@ -351,7 +351,7 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   cout << bin_cent << " " << bin_pt <<" " << bin_y << " " << endl;
 
-/*
+
   if(bin_cent == 5){
     if(*D0_MM > 1000){
 
@@ -363,10 +363,7 @@ Bool_t d0Selector::Process(Long64_t entry)
     hMM_cent[bin_cent-1]->Fill(*D0_MM);
     hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
   }
-  */
-
-  hMM_cent[bin_cent-1]->Fill(*D0_MM);
-  hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
+  
 
 
 
@@ -433,8 +430,8 @@ void d0Selector::Terminate()
 
   }
   for( int i = 0; i<7; i++){
-    for(int j=0;j<12;j++){
-      for(int k=0;k<6;k++){
+    for(int j=0;j<30;j++){
+      for(int k=0;k<7;k++){
         TH1D *tmp3 = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_diff_%d_%d_%d",i,j,k))->Clone() );
         tmp3->SetDirectory( outfile );
         tmp3->Write();
