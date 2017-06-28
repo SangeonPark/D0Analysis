@@ -349,10 +349,24 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
+  if(bin_cent-1 == 4){
+    if(*D0_MM > 1000){
 
+        hMM_cent[bin_cent-1]->Fill(*D0_MM);
+         hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
+    }
+  }
+  else{
 
+    
   hMM_cent[bin_cent-1]->Fill(*D0_MM);
   hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
+
+
+  }
+
+
+
 
 
   nt->Fill( 
