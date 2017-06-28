@@ -108,7 +108,7 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
       for(int k=0; k<6; k++){
 
     hMM_differential[i][j][k] = new TH1D(Form("hMM_diff_%d_%d_%d",i,j,k),
-                           Form("Diff_%d-%dcent_pT(%d-%dGeV)_y(%d-%d)",centrality[i+1],centrality[i],0.5*j,0.5*j+0.5,2.0+0.5*k,2.5+0.5*k),
+                           Form("Diff_%d-%dcent_pT(%.1f-%.1fGeV)_y(%.1f-%.1f)",centrality[i+1],centrality[i],0.5*j,0.5*j+0.5,2.0+0.5*k,2.5+0.5*k),
                            nBins_MM, MM_low_edge, MM_up_edge);
 
     hMM_differential[i][j][k]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
@@ -358,7 +358,7 @@ Bool_t d0Selector::Process(Long64_t entry)
   }
   else{
 
-    
+
   hMM_cent[bin_cent-1]->Fill(*D0_MM);
   hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
 
