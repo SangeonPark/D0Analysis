@@ -351,7 +351,7 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   cout << bin_cent << " " << bin_pt <<" " << bin_y << " " << endl;
 
-/*
+
   if(bin_cent == 5){
     if(*D0_MM > 1000){
 
@@ -363,10 +363,7 @@ Bool_t d0Selector::Process(Long64_t entry)
     hMM_cent[bin_cent-1]->Fill(*D0_MM);
     hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
   }
-  */
-
-  hMM_cent[bin_cent-1]->Fill(*D0_MM);
-  hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
+  
 
 
 
