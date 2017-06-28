@@ -41,7 +41,7 @@ private:
   // ------ Histo pointers -------------------
   TH1D **hMM;
   TH1D **hMM_cent;
-  TH1D* hMM_differential[10][20][10];
+  TH1D* hMM_differential[10][35][8];
 
   THnSparseD **hSparse;
 
