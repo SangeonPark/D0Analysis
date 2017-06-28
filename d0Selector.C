@@ -44,7 +44,7 @@ void d0Selector::Begin(TTree * /*tree*/)
    // When running with PROOF Begin() is only called on the client.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
-   TString option = GetOption();
+ TString option = GetOption();
 }
 
 void d0Selector::SlaveBegin(TTree * /*tree*/)
@@ -53,19 +53,19 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
    // When running with PROOF SlaveBegin() is called on each slave server.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
-   TString option = GetOption();
+ TString option = GetOption();
 
-  fStrHlt = new TString[knVarHlt]; 
+ fStrHlt = new TString[knVarHlt]; 
 
 
-  TString listHlt[] ={
-    "D0_Candidates_all" 
-  };
-  for( int i=0;i<knVarHlt;i++) fStrHlt[i] = listHlt[i];
+ TString listHlt[] ={
+  "D0_Candidates_all" 
+};
+for( int i=0;i<knVarHlt;i++) fStrHlt[i] = listHlt[i];
 
   fVarHlt = new Bool_t*[knVarHlt];
-  Bool_t D0ALLCAND = kTRUE;
-  Bool_t *varHlt[] = {
+Bool_t D0ALLCAND = kTRUE;
+Bool_t *varHlt[] = {
     &D0ALLCAND                              // always true
   };
   for( int i=0;i<knVarHlt;i++) fVarHlt[i] = varHlt[i];
@@ -74,14 +74,14 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   // #################################################
 
   // MM
-  Int_t nBins_MM       = 100;
+    Int_t nBins_MM       = 100;
   Double_t MM_low_edge = 1600.;
   Double_t MM_up_edge  = 2200.;
   hMM = new TH1D*[knVarHlt];
   for( int j=0; j< knVarHlt;j++){
     hMM[j] = new TH1D(Form("hMM_%s_BC%d", fStrHlt[j].Data(),3),
-                      Form("MM - %s - BC%d", fStrHlt[j].Data(),3),
-                      nBins_MM, MM_low_edge, MM_up_edge);
+      Form("MM - %s - BC%d", fStrHlt[j].Data(),3),
+      nBins_MM, MM_low_edge, MM_up_edge);
     hMM[j]->GetXaxis()->SetTitle("#pi K invariant mass (MeV/c^{2})");
     hMM[j]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
     
@@ -93,8 +93,8 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   for (int i=0; i<7; i++){
 
     hMM_cent[i] = new TH1D(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]),
-                           Form("Invariant Mass %d-%d percent",centrality[i+1],centrality[i]),
-                           nBins_MM, MM_low_edge, MM_up_edge);
+     Form("Invariant Mass %d-%d percent",centrality[i+1],centrality[i]),
+     nBins_MM, MM_low_edge, MM_up_edge);
 
     hMM_cent[i]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
 
@@ -107,14 +107,14 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
     for(int j=0; j<12; j++){
       for(int k=0; k<6; k++){
 
-    hMM_differential[i][j][k] = new TH1D(Form("hMM_diff_%d_%d_%d",i,j,k),
-                           Form("Diff_%d-%dcent_pT(%.1f-%.1fGeV)_y(%.1f-%.1f)",centrality[i+1],centrality[i],0.5*j,0.5*j+0.5,2.0+0.5*k,2.5+0.5*k),
-                           nBins_MM, MM_low_edge, MM_up_edge);
+        hMM_differential[i][j][k] = new TH1D(Form("hMM_diff_%d_%d_%d",i,j,k),
+         Form("Diff_%d-%dcent_pT(%.1f-%.1fGeV)_y(%.1f-%.1f)",centrality[i+1],centrality[i],0.5*j,0.5*j+0.5,2.0+0.5*k,2.5+0.5*k),
+         nBins_MM, MM_low_edge, MM_up_edge);
 
-    hMM_differential[i][j][k]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
+        hMM_differential[i][j][k]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
 
-    hMM_differential[i][j][k]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
-    GetOutputList()->Add( hMM_differential[i][j][k] );  
+        hMM_differential[i][j][k]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
+        GetOutputList()->Add( hMM_differential[i][j][k] );  
       }
     }
 
@@ -149,14 +149,14 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   hSparse = new THnSparseD*[knVarHlt];
   for( int j=0; j< knVarHlt;j++){
     hSparse[j] = new THnSparseD( Form("hSparse_%s_BC%d",fStrHlt[j].Data(),3),
-                            Form("hSparse_%s_BC%d",fStrHlt[j].Data(),3),
-                            kNaxis, bins, lbins,hbins);
-     hSparse[j]->GetAxis( kMMaxis )->SetTitle( "MM (D^{0}#rightarrow K #pi) (MeV/c^{2})");
-     hSparse[j]->GetAxis( kPTaxis )->SetTitle( "PT (D^{0}#rightarrow K #pi) (MeV/c)");
-     hSparse[j]->GetAxis( kYaxis )->SetTitle( "rapidity (D^{0}#rightarrow K #pi)");
-     hSparse[j]->GetAxis( kZaxis )->SetTitle( "OWNPV_Z (D^{0}#rightarrow K #pi) (mm)");
-     hSparse[j]->GetAxis( kVeloClusters )->SetTitle( "nVeloClusters (D^{0}#rightarrow K #pi)");
-     
+      Form("hSparse_%s_BC%d",fStrHlt[j].Data(),3),
+      kNaxis, bins, lbins,hbins);
+    hSparse[j]->GetAxis( kMMaxis )->SetTitle( "MM (D^{0}#rightarrow K #pi) (MeV/c^{2})");
+    hSparse[j]->GetAxis( kPTaxis )->SetTitle( "PT (D^{0}#rightarrow K #pi) (MeV/c)");
+    hSparse[j]->GetAxis( kYaxis )->SetTitle( "rapidity (D^{0}#rightarrow K #pi)");
+    hSparse[j]->GetAxis( kZaxis )->SetTitle( "OWNPV_Z (D^{0}#rightarrow K #pi) (mm)");
+    hSparse[j]->GetAxis( kVeloClusters )->SetTitle( "nVeloClusters (D^{0}#rightarrow K #pi)");
+
     GetOutputList()->Add( hSparse[ j ] );  
   }
 
@@ -188,15 +188,15 @@ void d0Selector::SlaveBegin(TTree * /*tree*/)
   Double_t Candidates_up_edge  = 100;
 
   TH2D *hCandidates = new TH2D("hCandidates_vs_VeloClusters","Candidates vs Velo",
-                                nBins_nVeloClusters, nVeloClusters_low_edge, nVeloClusters_up_edge,
-                                nBins_Candidates, Candidates_low_edge, Candidates_up_edge
-                        );
+    nBins_nVeloClusters, nVeloClusters_low_edge, nVeloClusters_up_edge,
+    nBins_Candidates, Candidates_low_edge, Candidates_up_edge
+    );
   GetOutputList()->Add( hCandidates );  
 
   TH2D *heEcalVelo = new TH2D("heEcal_vs_VeloClusters","eEcal:Velo",
-                                2000, nVeloClusters_low_edge, nVeloClusters_up_edge,
-                                2000, 0, 60000000
-                        );
+    2000, nVeloClusters_low_edge, nVeloClusters_up_edge,
+    2000, 0, 60000000
+    );
   GetOutputList()->Add( heEcalVelo );  
 
   TH1F *hruns = new TH1F("hruns","runs",169618-168487,168487,169618);
@@ -224,9 +224,9 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
 
-    TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass") );
+  TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass") );
 
-   fReader.SetEntry(entry);
+  fReader.SetEntry(entry);
 
   if( entry%5000 == 0) Printf( "%lld", entry);
   *fVarHlt[kD0CANDALL] = kTRUE; // just to be sure that is always true
@@ -260,7 +260,7 @@ Bool_t d0Selector::Process(Long64_t entry)
     hCandidates->Fill( *nVeloClusters, *totCandidates );
 
 
-        TH2D *heEcalVelo = dynamic_cast<TH2D*>( GetOutputList()->FindObject("heEcal_vs_VeloClusters") );
+    TH2D *heEcalVelo = dynamic_cast<TH2D*>( GetOutputList()->FindObject("heEcal_vs_VeloClusters") );
 
     heEcalVelo->Fill (*nVeloClusters, *eEcal);
 
@@ -309,18 +309,18 @@ Bool_t d0Selector::Process(Long64_t entry)
 
   double d0_ownpv_r = TMath::Sqrt( (*D0_OWNPV_X)*(*D0_OWNPV_X)+(*D0_OWNPV_Y)*(*D0_OWNPV_Y) );
   Double_t d0var[] = {
-      *D0_MM, 
-      *D0_PT,*D0_Y, 
-      *D0_OWNPV_Z, 
-      d0_ownpv_r, 
-      static_cast<Double_t>(*nVeloClusters) };
+    *D0_MM, 
+    *D0_PT,*D0_Y, 
+    *D0_OWNPV_Z, 
+    d0_ownpv_r, 
+    static_cast<Double_t>(*nVeloClusters) };
 
   //Printf(" ok %d ", BCType);
   *fVarHlt[kD0CANDALL] = kTRUE; // just to be sure that is always true
   for( int j=0; j< knVarHlt;j++){
     if( *fVarHlt[j] == kTRUE ){
-        hMM[j]->Fill( *D0_MM );
-        hSparse[j]->Fill(d0var );
+      hMM[j]->Fill( *D0_MM );
+      hSparse[j]->Fill(d0var );
     }
   }
 
@@ -349,41 +349,40 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
+/*
   if(bin_cent == 5){
     if(*D0_MM > 1000){
 
-        hMM_cent[bin_cent-1]->Fill(*D0_MM);
-         hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
+      hMM_cent[bin_cent-1]->Fill(*D0_MM);
+      hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
     }
   }
   else{
-
+    hMM_cent[bin_cent-1]->Fill(*D0_MM);
+    hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
+  }
+  */
 
   hMM_cent[bin_cent-1]->Fill(*D0_MM);
   hMM_differential[bin_cent-1][bin_pt-1][bin_y-1]->Fill(*D0_MM);
 
 
-  }
-
-
-
-
 
   nt->Fill( 
-      *D0_MM,
-      *D0_PT,
-      *D0_Y,
-      *D0_OWNPV_Z,
-      *D0_DIRA_OWNPV,
-      *Kplus_PIDK,
-      *piminus_PIDK,
-      *eHcal, *eEcal, *nVeloClusters );
+    *D0_MM,
+    *D0_PT,
+    *D0_Y,
+    *D0_OWNPV_Z,
+    *D0_DIRA_OWNPV,
+    *Kplus_PIDK,
+    *piminus_PIDK,
+    *eHcal, *eEcal, *nVeloClusters );
 
   TLorentzVector* vec = new TLorentzVector(*piminus_PX+*Kplus_PX,*piminus_PY+*Kplus_PY,*piminus_PZ+*Kplus_PZ,*piminus_PE+*Kplus_PE);
   hInvMass->Fill(vec->M());
 
 
-   return kTRUE;
+  return kTRUE;
 }
 
 void d0Selector::SlaveTerminate()
@@ -419,21 +418,21 @@ void d0Selector::Terminate()
     TH1D *tmp = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_%s_BC%d", strHlt[j].Data(),3))->Clone() );
     tmp->SetDirectory( outfile );
     tmp->Write();
-  
+
     THnSparse *tS = dynamic_cast<THnSparse*>( GetOutputList()->FindObject(Form("hSparse_%s_BC%d", strHlt[j].Data(),3))->Clone() );
     //tS->SetDirectory( outfile );
     tS->Write();
   }
 
   for( int i = 0; i<7; i++){
-        TH1D *tmp2 = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]))->Clone() );
-        tmp2->SetDirectory( outfile );
-        tmp2->Write();
+    TH1D *tmp2 = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]))->Clone() );
+    tmp2->SetDirectory( outfile );
+    tmp2->Write();
 
   }
-    for( int i = 0; i<7; i++){
-      for(int j=0;j<12;j++){
-        for(int k=0;k<6;k++){
+  for( int i = 0; i<7; i++){
+    for(int j=0;j<12;j++){
+      for(int k=0;k<6;k++){
         TH1D *tmp3 = dynamic_cast<TH1D*>( GetOutputList()->FindObject(Form("hMM_diff_%d_%d_%d",i,j,k))->Clone() );
         tmp3->SetDirectory( outfile );
         tmp3->Write();
@@ -455,7 +454,7 @@ void d0Selector::Terminate()
   hTime->SetDirectory( outfile );
   hTime->Write();
 
-    TH1D *heEcal = dynamic_cast<TH1D*>( GetOutputList()->FindObject("heEcal")->Clone() );
+  TH1D *heEcal = dynamic_cast<TH1D*>( GetOutputList()->FindObject("heEcal")->Clone() );
   heEcal->SetDirectory( outfile );
   heEcal->Write();
 
@@ -463,7 +462,7 @@ void d0Selector::Terminate()
   hCandidates->SetDirectory( outfile );
   hCandidates->Write();
 
-    TH2D *heEcalVelo = dynamic_cast<TH2D*>( GetOutputList()->FindObject("heEcal_vs_VeloClusters")->Clone() );
+  TH2D *heEcalVelo = dynamic_cast<TH2D*>( GetOutputList()->FindObject("heEcal_vs_VeloClusters")->Clone() );
   heEcalVelo->SetDirectory( outfile );
   heEcalVelo->Write();
 
