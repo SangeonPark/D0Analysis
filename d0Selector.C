@@ -342,6 +342,8 @@ Bool_t d0Selector::Process(Long64_t entry)
     }
   }
 
+  if(bin_pt == -1) return 0;
+
   for(int i=1; i<=7; i++){
     if(*D0_Y <= 2+i*0.5){
       bin_y = i;
