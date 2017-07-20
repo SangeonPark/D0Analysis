@@ -101,7 +101,7 @@ Bool_t MBselector::Process(Long64_t entry)
    hNveloAA->Fill( *nVeloClusters);
 
    TH1D *hNtstationAA = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hNtstationAA") );
-   hNstationAA->Fill( *nTTClusters );
+   hNtstationAA->Fill( *nTTClusters );
 
 
 
