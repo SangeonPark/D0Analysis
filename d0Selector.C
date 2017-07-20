@@ -74,7 +74,7 @@ Bool_t *varHlt[] = {
   // #################################################
 
   // MM
-    Int_t nBins_MM       = 300;
+  Int_t nBins_MM       = 300;
   Double_t MM_low_edge = 1600.;
   Double_t MM_up_edge  = 2200.;
   hMM = new TH1D*[knVarHlt];
@@ -250,6 +250,7 @@ Bool_t d0Selector::Process(Long64_t entry)
   // ----------------------------------
   // General plots before the cuts, only filled for the first candidate
   if( *nCandidate == 0 ){
+    
     TH1D *hTime = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hTime") );
     hTime->Fill( *GpsTime/1000000 );
 
