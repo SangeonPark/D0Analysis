@@ -54,13 +54,13 @@ void MBselector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
 
-   Int_t nBins                 = 200;
-   Double_t Ntrk_low_edge      =
-   Double_t Ntrk_up_edge       =
-   Double_t Nvelo_low_edge     =
-   Double_t Nvelo_up_edge      =
-   Double_t Ntstation_low_edge = 
-   Double_t Ntstation_up_edge  =
+   Int_t nBins                 = 1000;
+   Double_t Ntrk_low_edge      = 0;
+   Double_t Ntrk_up_edge       = 5000;
+   Double_t Nvelo_low_edge     = 0;
+   Double_t Nvelo_up_edge      = 25000;
+   Double_t Ntstation_low_edge = 0;
+   Double_t Ntstation_up_edge  = 25000;
 
    TH1D* hNtrkAA = new TH1D("hNtrkAA","hNtrkAA",nBins,Ntrk_low_edge,Ntrk_up_edge);
    GetOutputList()->Add( hNtrkAA );  
