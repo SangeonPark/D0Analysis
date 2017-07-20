@@ -54,7 +54,7 @@ void MBselector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
 
-   Int_t nBins                 = 1000;
+   Int_t nBins                 = 100000;
    Double_t Ntrk_low_edge      = 0;
    Double_t Ntrk_up_edge       = 5000;
    Double_t Nvelo_low_edge     = 0;
