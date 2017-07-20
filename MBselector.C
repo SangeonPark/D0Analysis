@@ -142,6 +142,8 @@ void MBselector::Terminate()
    hNtstationAA->SetDirectory( outfile );
    hNtstationAA->Write();
 
+   outfile->Close();
+
 
 
 
