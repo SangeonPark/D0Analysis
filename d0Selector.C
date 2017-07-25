@@ -74,7 +74,7 @@ Bool_t *varHlt[] = {
   // #################################################
 
   // MM
-  Int_t nBins_MM       = 300;
+    Int_t nBins_MM       = 300;
   Double_t MM_low_edge = 1600.;
   Double_t MM_up_edge  = 2200.;
   hMM = new TH1D*[knVarHlt];
@@ -179,6 +179,9 @@ Bool_t *varHlt[] = {
   GetOutputList()->Add( heEcal );
 
 
+  TH1D *hNvelo = new TH1D("hNvelo","nVeloDist;NVeloClusters;Counts",500,0,20000);
+  GetOutputList()->Add( hNvelo );
+
 
 
 
@@ -250,9 +253,12 @@ Bool_t d0Selector::Process(Long64_t entry)
   // ----------------------------------
   // General plots before the cuts, only filled for the first candidate
   if( *nCandidate == 0 ){
-    
+
     TH1D *hTime = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hTime") );
     hTime->Fill( *GpsTime/1000000 );
+
+    TH1D *hNvelo = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hNvelo") );
+    hTime->Fill( *nVeloClusters );
 
     TH1F *hruns = dynamic_cast<TH1F*>( GetOutputList()->FindObject("hruns") );
     hruns->Fill( *runNumber );
@@ -409,7 +415,7 @@ void d0Selector::Terminate()
   TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
   // +++++++++++++++++++++++++++++++++++++++++++++++++
   // prepare for saving histos in a file
-  TFile *outfile = TFile::Open("histos_triplediff_finer.root","recreate");
+  TFile *outfile = TFile::Open("histos_triplediff_0725.root","recreate");
 
   nt->SetDirectory( outfile );
   nt->Write(); 
@@ -455,6 +461,10 @@ void d0Selector::Terminate()
   TH1D *hTime = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hTime")->Clone() );
   hTime->SetDirectory( outfile );
   hTime->Write();
+
+  TH1D *hNvelo = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hNvelo")->Clone() );
+  hNvelo->SetDirectory( outfile );
+  hNvelo->Write();
 
   TH1D *heEcal = dynamic_cast<TH1D*>( GetOutputList()->FindObject("heEcal")->Clone() );
   heEcal->SetDirectory( outfile );
