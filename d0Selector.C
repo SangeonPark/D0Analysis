@@ -258,7 +258,7 @@ Bool_t d0Selector::Process(Long64_t entry)
     hTime->Fill( *GpsTime/1000000 );
 
     TH1D *hNvelo = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hNvelo") );
-    hTime->Fill( *nVeloClusters );
+    hNvelo->Fill( *nVeloClusters );
 
     TH1F *hruns = dynamic_cast<TH1F*>( GetOutputList()->FindObject("hruns") );
     hruns->Fill( *runNumber );
