@@ -88,36 +88,7 @@ Bool_t *varHlt[] = {
     GetOutputList()->Add( hMM[ j ] );  
   }
 
-  hMM_cent = new TH1D*[10];
-
-  for (int i=0; i<7; i++){
-
-    hMM_cent[i] = new TH1D(Form("hMM_cent_%d-%d",centrality[i+1],centrality[i]),
-     Form("Invariant Mass %d-%d percent",centrality[i+1],centrality[i]),
-     nBins_MM, MM_low_edge, MM_up_edge);
-
-    hMM_cent[i]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
-
-    hMM_cent[i]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
-    GetOutputList()->Add( hMM_cent[ i ] );  
-
-  }
-
-  for (int i=0; i<7; i++){
-    for(int j=0; j<30; j++){
-      for(int k=0; k<7; k++){
-
-        hMM_differential[i][j][k] = new TH1D(Form("hMM_diff_%d_%d_%d",i,j,k),
-         Form("Diff_%d-%dcent_pT(%.1f-%.1fGeV)_y(%.1f-%.1f)",centrality[i+1],centrality[i],0.5*j,0.5*j+0.5,2.0+0.5*k,2.5+0.5*k),
-         nBins_MM, MM_low_edge, MM_up_edge);
-
-        hMM_differential[i][j][k]->GetXaxis()->SetTitle("m_{K_{+}#pi_{-}}[MeV/c^{2}]");
-
-        hMM_differential[i][j][k]->GetYaxis()->SetTitle(Form("Events / %.1f MeV/c^{2}",(MM_up_edge-MM_low_edge)/nBins_MM));
-        GetOutputList()->Add( hMM_differential[i][j][k] );  
-      }
-    }
-  }
+ 
 
 
   Int_t nBins_PT        = 10;
@@ -144,65 +115,6 @@ Bool_t *varHlt[] = {
   Int_t bins[]  = {       nBins_MM,     nBins_PT,    nBins_Y,    nBins_OWNPV_Z,     nBins_OWNPV_R,    nBins_nVeloClusters    }; 
   Double_t lbins[] = { MM_low_edge,  PT_low_edge, Y_low_edge, OWNPV_Z_low_edge,  OWNPV_R_low_edge, nVeloClusters_low_edge    }; 
   Double_t hbins[] = {  MM_up_edge,   PT_up_edge,  Y_up_edge,  OWNPV_Z_up_edge,   OWNPV_R_up_edge,  nVeloClusters_up_edge    }; 
-
-  hSparse = new THnSparseD*[knVarHlt];
-  for( int j=0; j< knVarHlt;j++){
-    hSparse[j] = new THnSparseD( Form("hSparse_%s_BC%d",fStrHlt[j].Data(),3),
-      Form("hSparse_%s_BC%d",fStrHlt[j].Data(),3),
-      kNaxis, bins, lbins,hbins);
-    hSparse[j]->GetAxis( kMMaxis )->SetTitle( "MM (D^{0}#rightarrow K #pi) (MeV/c^{2})");
-    hSparse[j]->GetAxis( kPTaxis )->SetTitle( "PT (D^{0}#rightarrow K #pi) (MeV/c)");
-    hSparse[j]->GetAxis( kYaxis )->SetTitle( "rapidity (D^{0}#rightarrow K #pi)");
-    hSparse[j]->GetAxis( kZaxis )->SetTitle( "OWNPV_Z (D^{0}#rightarrow K #pi) (mm)");
-    hSparse[j]->GetAxis( kVeloClusters )->SetTitle( "nVeloClusters (D^{0}#rightarrow K #pi)");
-
-    GetOutputList()->Add( hSparse[ j ] );  
-  }
-
-  TNtuple *nt = new TNtuple("nt","nt","MM:PT:Y:Z:DIRA:KplusPIDK:piminusPIDK:Hcal:Ecal:Velo");
-  GetOutputList()->Add(nt); 
-  // general plots
-  Int_t nBins_Time = 5206;
-  Double_t Time_low_edge = 1448453220;
-  Double_t Time_up_edge  = 1450015074;
-
-  TH1D *hTime = new TH1D("hTime","Time", nBins_Time, Time_low_edge, Time_up_edge);
-  hTime->GetXaxis()->SetTitle("time (s)"); 
-  hTime->GetYaxis()->SetTitle(Form("entries/(%.0f s)",(Time_up_edge - Time_low_edge)/nBins_Time)); 
-  GetOutputList()->Add( hTime );  
-
-  TH1D *hInvMass = new TH1D("hInvMass","Inv Mass;m_{K_{+}#pi_{-}}[MeV];Candidates",100,1600,2200);
-  GetOutputList()->Add( hInvMass );  
-
-  TH1D *heEcal = new TH1D("heEcal","eEcal;Energy Ecal (MeV);Counts",2000,0,60000000);
-  GetOutputList()->Add( heEcal );
-
-
-  TH1D *hNvelo = new TH1D("hNvelo","nVeloDist;NVeloClusters;Counts",500,0,20000);
-  GetOutputList()->Add( hNvelo );
-
-
-
-
-
-  Int_t nBins_Candidates = 100;
-  Double_t Candidates_low_edge = 0;
-  Double_t Candidates_up_edge  = 100;
-
-  TH2D *hCandidates = new TH2D("hCandidates_vs_VeloClusters","Candidates vs Velo",
-    nBins_nVeloClusters, nVeloClusters_low_edge, nVeloClusters_up_edge,
-    nBins_Candidates, Candidates_low_edge, Candidates_up_edge
-    );
-  GetOutputList()->Add( hCandidates );  
-
-  TH2D *heEcalVelo = new TH2D("heEcal_vs_VeloClusters","eEcal:Velo",
-    2000, nVeloClusters_low_edge, nVeloClusters_up_edge,
-    2000, 0, 60000000
-    );
-  GetOutputList()->Add( heEcalVelo );  
-
-  TH1F *hruns = new TH1F("hruns","runs",169618-168487,168487,169618);
-  GetOutputList()->Add( hruns ); 
 
 
   TH2D *hGen = new TH2D("hCandidates_vs_VeloClusters","Candidates vs Velo",
@@ -243,9 +155,6 @@ Bool_t d0Selector::Process(Long64_t entry)
    //
    // The return value is currently not used.
 
-  TNtuple *nt  = static_cast<TNtuple*>(GetOutputList()->FindObject("nt")); 
-
-  TH1D *hInvMass = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hInvMass") );
 
   fReader.SetEntry(entry);
 
@@ -260,45 +169,9 @@ Bool_t d0Selector::Process(Long64_t entry)
 //  if(*nLongTracks !=2 ) return kFALSE;
 
 
-  // if not a BCType3 skip
-  //
-  if( *BCType != 3 ) return kFALSE;
 
 
 
-
-
-  // ----------------------------------
-  // General plots before the cuts, only filled for the first candidate
-  if( *nCandidate == 0 ){
-
-    TH1D *hTime = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hTime") );
-    hTime->Fill( *GpsTime/1000000 );
-
-    TH1D *hNvelo = dynamic_cast<TH1D*>( GetOutputList()->FindObject("hNvelo") );
-    hNvelo->Fill( *nVeloClusters );
-
-    TH1F *hruns = dynamic_cast<TH1F*>( GetOutputList()->FindObject("hruns") );
-    hruns->Fill( *runNumber );
-
-    TH2D *hCandidates = dynamic_cast<TH2D*>( GetOutputList()->FindObject("hCandidates_vs_VeloClusters") );
-    hCandidates->Fill( *nVeloClusters, *totCandidates );
-
-
-    TH2D *heEcalVelo = dynamic_cast<TH2D*>( GetOutputList()->FindObject("heEcal_vs_VeloClusters") );
-
-    heEcalVelo->Fill (*nVeloClusters, *eEcal);
-
-    TH1D *heEcal = dynamic_cast<TH1D*>( GetOutputList()->FindObject("heEcal") );
-
-
-    heEcal->Fill(*eEcal);
-    //for( int j=0; j< knVarHlt;j++){
-      //hnSPDHits[GetHPos(j,BCType-1)]->Fill( nSPDHits );
-      //hnVeloTracks[GetHPos(j,BCType-1)]->Fill( nVeloTracks );
-    //}
-  }
-  
   // SELECT RUN: TODO make it more general... please :)
   //
   //if( runNumber < 161108 || runNumber > 161123 ) return 0; // 0x00FD024F
