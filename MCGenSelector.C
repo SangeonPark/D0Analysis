@@ -28,6 +28,8 @@
 #include "MCGenSelector.h"
 #include <TH2.h>
 #include <TStyle.h>
+#include <TMath.h>
+
 
 void MCGenSelector::Begin(TTree * /*tree*/)
 {
@@ -81,6 +83,8 @@ Bool_t MCGenSelector::Process(Long64_t entry)
    E = *D0_TRUEP_E;
    D0_PT = *D0_TRUEPT;
    D0_Y = ATan(pz/E);
+
+   TH2D *hGen = dynamic_cast<TH2D*>( GetOutputList()->FindObject("hGen") );
 
    hGen->Fill(D0_PT,D0_Y);
 
