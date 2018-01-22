@@ -1,7 +1,6 @@
 {
 
 	TChain *chain = new TChain("mct/MCDecayTree");
-    //TChain *chain = new TChain("DecayTreeTuple/DecayTree");
 
 	ifstream inf("tuplefilesMC.txt");
 	TString line;
