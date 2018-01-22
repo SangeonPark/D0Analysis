@@ -82,7 +82,7 @@ Bool_t MCGenSelector::Process(Long64_t entry)
    pz = *D0_TRUEP_Z;
    E = *D0_TRUEP_E;
    D0_PT = *D0_TRUEPT;
-   D0_Y = ATan(pz/E);
+   D0_Y = TMath::ATan(pz/E);
 
    TH2D *hGen = dynamic_cast<TH2D*>( GetOutputList()->FindObject("hGen") );
 
