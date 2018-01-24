@@ -48,8 +48,8 @@ void MCGenSelector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
    TH2D *hGen = new TH2D("hCandidates_vs_VeloClusters","Candidates vs Velo",
-    0, 5, 10,
-    2, 5, 6
+    10, 0, 5,
+    6, 2, 5
     );
    GetOutputList()->Add( hGen);  
 
