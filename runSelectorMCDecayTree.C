@@ -23,9 +23,9 @@
 
 //chain->Draw("runNumber>>h(200,161050,161250)","nCandidate==0");
 
- TProof *p = TProof::Open("workers=30");
+// TProof *p = TProof::Open("workers=30");
 ////p->SetParallel(2);
- chain->SetProof();
+// chain->SetProof();
 //////
 //chain->Process("d0Selector.C+");
  chain->Process("/home/saepark/D0Analysis/MCGenSelector.C+");
